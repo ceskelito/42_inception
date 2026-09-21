@@ -4,3 +4,14 @@ services:
     container_name: nginx
     ports:
       - "8080:80"
+    volumes:
+      - nginx_conf:/etc/nginx/conf.d/:ro
+
+volumes:
+  nginx_conf:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/rceschel/data/nginx_conf'
+
