@@ -1,9 +1,11 @@
+
 services:
   nginx:
+    env_file: ".env"
     build: ./requirements/nginx/
     container_name: nginx
     ports:
-      - "8080:80"
+      - "4343:443"
     volumes:
       - nginx_conf:/etc/nginx/conf.d/:ro
 
@@ -13,5 +15,5 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/rceschel/data/nginx_conf'
+      device: '${VOLUMES_HOME}/nginx_conf'
 

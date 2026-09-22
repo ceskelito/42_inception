@@ -1,21 +1,26 @@
-MKDIR                = mkdir -p
-COMPOSE_FILE         = srcs/docker-compose.yml
-VOLUMES_HOST_BINDS   = /home/rceschel/data/nginx_conf
+include srcs/.env
+
+MKDIR				= mkdir -p
+RM					= rm -rf
+COMPOSE				= docker compose -f
+
+COMPOSE_FILE		= ./srcs/docker-compose.yml
+VOLUMES_HOST_BINDS	= $(VOLUMES_HOME)/nginx_conf
 
 all: compose
 
 compose: volumes_folders
-	docker compose -f $(COMPOSE_FILE) up --build -d
+	$(COMPOSE) $(COMPOSE_FILE) up --build -d
 
 volumes_folders:
 	$(MKDIR) $(VOLUMES_HOST_BINDS)
 
 clean:
-	docker compose -f $(COMPOSE_FILE) down
+	$(COMPOSE) $(COMPOSE_FILE) down
 
 fclean: clean
-	docker compose -f $(COMPOSE_FILE) down -v --rmi all
-	rm -rf $(VOLUMES_HOST_BINDS)
+	$(COMPOSE) $(COMPOSE_FILE) down -v --rmi all
+	#$(RM) $(VOLUMES_HOST_BINDS)
 
 re: fclean all
 
