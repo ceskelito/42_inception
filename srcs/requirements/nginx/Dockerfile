@@ -1,23 +1,14 @@
 FROM debian:bookworm
 
+ARG user=defaultuser
+ARG base_domain=defaultuser.42.fr
+
+ARG certs_path=/etc/nginx/certs
+ARG ssl_cert=${certs_path}/${base_domain}.crt
+ARG ssl_cert_key=${certs_path}/${base_domain}.key
+
 RUN apt-get -y update && \
-	apt-get -y install \
-	nginx \
-	openssl
+	apt-get install -y --no-install-recommends \
+	nginx
 
-RUN openssl req \
-	-x509 \
-	-newkey rsa:2048 \
-	-keyout rceschel.key \
-	-out rceschel.crt \
-	-days 365 \
-	-nodes \
-	-addext "subjectAltName=DNS:rceschel.42.fr, DNS:www.rceschel.42.fr" \
-	-addext "basicConstraints=critical,CA:FALSE" \
-	-addext "extendedKeyUsage=serverAuth" \
-	-subj "/C=IT/ST=Rome/L=Rome/O=42Roma/OU=rceschel/CN=rceschel/"
-	
-COPY conf/rceschel.conf /etc/nginx/conf.d/rceschel.conf
-
-CMD ["tail", "-f", "/dev/null"]
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,3 +1,5 @@
 **/**/.env
 ./secrets/
 *.swp
+./srcs/requirements/nginx/certs/
+./srcs/requirements/nginx/rendered/

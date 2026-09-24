@@ -5,12 +5,20 @@ RM			= rm -rf
 COMPOSE			= docker compose -f
 
 COMPOSE_FILE		= ./srcs/docker-compose.yml
-VOLUMES_HOST_BINDS	= $(VOLUMES_HOME)/nginx_conf
+#VOLUMES_HOST_BINDS	= 
 
 all: up
 
-up: volumes_folders
+up: certs confs # volumes_folders
 	$(COMPOSE) $(COMPOSE_FILE) up -d --build
+certs:
+	@chmod +x ./srcs/requirements/nginx/tools/make_certs.sh && \
+	./srcs/requirements/nginx/tools/make_certs.sh
+
+confs:
+	@chmod +x ./srcs/requirements/nginx/tools/render_conf.sh && \
+	./srcs/requirements/nginx/tools/render_conf.sh
+
 down:
 	$(COMPOSE) $(COMPOSE_FILE) down 
 start:
