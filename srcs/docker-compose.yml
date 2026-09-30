@@ -3,11 +3,11 @@ name: inception
 ---
 services:
   nginx:
-    environment:
-      HOST_DOMAIN: ${HOST_DOMAIN:-login.42.fr}
     container_name: nginx
     build:
       context: ./requirements/nginx/
+    environment:
+      HOST_DOMAIN: ${HOST_DOMAIN:-login.42.fr}
     volumes:
       - ./requirements/nginx/templates:/etc/nginx/templates:ro
     secrets:
@@ -17,14 +17,10 @@ services:
         target: /run/secrets/${HOST_DOMAIN:-login.42.fr}.key
     ports:
       - "4343:443"
-
-
-#configs:
-#  nginx_template:
-#    file: ./requirements/nginx/templates/default.conf.template
+    restart: always
 
 secrets:
   tls_cert:
-    file: ./requirements/nginx/certs/${HOST_DOMAIN}.crt
+    file: ./requirements/nginx/certs/tls_crt
   tls_key:
-    file: ./requirements/nginx/certs/${HOST_DOMAIN}.key
+    file: ./requirements/nginx/certs/tls_key

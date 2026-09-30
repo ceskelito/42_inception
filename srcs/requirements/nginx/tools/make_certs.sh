@@ -30,8 +30,8 @@ CERT_USER="${CERT_USER//[^A-Za-z0-9._-]/_}"   # no characters that break -subj
 make_certs()
 {
     local domain="$HOST_DOMAIN"
-    local key="${CERTS_DIR}/${domain}.key"
-    local crt="${CERTS_DIR}/${domain}.crt"
+    local key="${CERTS_DIR}/tls_key"
+    local crt="${CERTS_DIR}/tls_crt"
 
     if [[ -f "$key" && -f "$crt" && "${FORCE:-0}" != "1" ]]; then
         echo "certificates already present in $CERTS_DIR (use FORCE=1 to regenerate)"
