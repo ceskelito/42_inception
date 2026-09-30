@@ -1,18 +1,23 @@
+---
 name: inception
+---
 services:
   nginx:
-    env_file: ".env"
+    environment:
+      HOST_DOMAIN: ${HOST_DOMAIN:-login.42.fr}
     container_name: nginx
     build:
-      context: requirements/nginx/
+      context: ./requirements/nginx/
     volumes:
-      - requirements/nginx/templates:/etc/nginx/templates:ro
+      - ./requirements/nginx/templates:/etc/nginx/templates:ro
     secrets:
-      - tls_cert
-      - tls_key
-
+      - source: tls_cert
+        target: /run/secrets/${HOST_DOMAIN:-login.42.fr}.crt
+      - source: tls_key
+        target: /run/secrets/${HOST_DOMAIN:-login.42.fr}.key
     ports:
       - "4343:443"
+
 
 #configs:
 #  nginx_template:
@@ -20,6 +25,6 @@ services:
 
 secrets:
   tls_cert:
-    file: ./requirements/nginx/certs/${BASE_DOMAIN}.crt
+    file: ./requirements/nginx/certs/${HOST_DOMAIN}.crt
   tls_key:
-    file: ./requirements/nginx/certs/${BASE_DOMAIN}.key
+    file: ./requirements/nginx/certs/${HOST_DOMAIN}.key

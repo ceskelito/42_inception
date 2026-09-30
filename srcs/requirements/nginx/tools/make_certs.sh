@@ -18,10 +18,10 @@ die() { echo "error: $*" >&2; exit 1; }
 source "$ENV_FILE"
 
 # Variable fallbacks and validation
-: "${BASE_DOMAIN:?BASE_DOMAIN not defined in $ENV_FILE}"
+: "${HOST_DOMAIN:?HOST_DOMAIN not defined in $ENV_FILE}"
 
-[[ "$BASE_DOMAIN" =~ ^[A-Za-z0-9]([A-Za-z0-9.-]*[A-Za-z0-9])?$ ]] \
-    || die "invalid BASE_DOMAIN: '$BASE_DOMAIN'"
+[[ "$HOST_DOMAIN" =~ ^[A-Za-z0-9]([A-Za-z0-9.-]*[A-Za-z0-9])?$ ]] \
+    || die "invalid HOST_DOMAIN: '$HOST_DOMAIN'"
 
 # USER may be missing (cron, containers, minimal environments)
 CERT_USER="${USER:-$(id -un)}"
@@ -29,7 +29,7 @@ CERT_USER="${CERT_USER//[^A-Za-z0-9._-]/_}"   # no characters that break -subj
 
 make_certs()
 {
-    local domain="$BASE_DOMAIN"
+    local domain="$HOST_DOMAIN"
     local key="${CERTS_DIR}/${domain}.key"
     local crt="${CERTS_DIR}/${domain}.crt"
 
