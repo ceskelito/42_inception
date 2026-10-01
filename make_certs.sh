@@ -6,7 +6,7 @@ umask 077   # created files are born without group/other permissions
 # Obtain absolute path of working directory
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-ENV_FILE="${SCRIPT_DIR}/.env"
+ENV_FILE="${SCRIPT_DIR}/srcs/.env"
 CERTS_DIR="${SCRIPT_DIR}/secrets"
 
 die() { echo "error: $*" >&2; exit 1; }

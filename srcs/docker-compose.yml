@@ -21,6 +21,6 @@ services:
 
 secrets:
   tls_cert:
-    file: ${TLS_CRT:-./secrets/tls_crt}
+    file: ${TLS_CRT:-../secrets/tls_crt}
   tls_key:
-    file: ${TLS_KEY:-./secrets/tls_key}
+    file: ${TLS_KEY:-../secrets/tls_key}

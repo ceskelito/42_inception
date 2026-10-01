@@ -12,8 +12,8 @@ up: certs
 	$(COMPOSE) $(COMPOSE_FILE) up -d --build
 
 certs:
-	@chmod +x ./srcs/make_certs.sh && \
-	./srcs/make_certs.sh
+	@chmod +x ./make_certs.sh && \
+	./make_certs.sh
 
 down:
 	$(COMPOSE) $(COMPOSE_FILE) down 
