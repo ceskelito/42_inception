@@ -6,25 +6,23 @@ umask 077   # created files are born without group/other permissions
 # Obtain absolute path of working directory
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-# Defaults derived from the script, overridable from outside
-ENV_FILE="${ENV_FILE:-${SCRIPT_DIR}/../../../.env}"
-CERTS_DIR="${CERTS_DIR:-${SCRIPT_DIR}/../certs}"
+ENV_FILE="${SCRIPT_DIR}/.env"
+CERTS_DIR="${SCRIPT_DIR}/secrets"
 
 die() { echo "error: $*" >&2; exit 1; }
 
 [[ -f "$ENV_FILE" ]] || die ".env file not found: $ENV_FILE"
 
-# shellcheck source=/dev/null
 source "$ENV_FILE"
 
 # Variable fallbacks and validation
 : "${HOST_DOMAIN:?HOST_DOMAIN not defined in $ENV_FILE}"
+: "${INC_USER:?INC_USER not defined in $ENV_FILE}"
 
 [[ "$HOST_DOMAIN" =~ ^[A-Za-z0-9]([A-Za-z0-9.-]*[A-Za-z0-9])?$ ]] \
     || die "invalid HOST_DOMAIN: '$HOST_DOMAIN'"
 
-# USER may be missing (cron, containers, minimal environments)
-CERT_USER="${USER:-$(id -un)}"
+CERT_USER="${INC_USER}"
 CERT_USER="${CERT_USER//[^A-Za-z0-9._-]/_}"   # no characters that break -subj
 
 make_certs()
