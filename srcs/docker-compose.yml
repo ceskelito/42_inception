@@ -18,6 +18,11 @@ services:
     ports:
       - "4343:443"
     restart: always
+---
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb/
 
 secrets:
   tls_cert:
