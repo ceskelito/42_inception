@@ -6,7 +6,7 @@ RUN apt-get -y update && \
 	nginx
 
 COPY tools/docker-entrypoint.sh /
-COPY tools/envsubst-on-templates.sh /docker-entrypoint.d/
+COPY tools/20-envsubst-on-templates.sh /docker-entrypoint.d/
 
 EXPOSE 443
 

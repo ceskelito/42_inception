@@ -18,11 +18,20 @@ services:
     ports:
       - "4343:443"
     restart: always
----
   mariadb:
     container_name: mariadb
     build:
       context: ./requirements/mariadb/
+    volumes:
+     - mariadb-data:/usr/data/ # idk where to mount it
+
+volumes:
+  mariadb-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INC_DATA}
 
 secrets:
   tls_cert:
