@@ -2,12 +2,15 @@
 name: inception
 ---
 services:
+
   nginx:
     container_name: nginx
     build:
       context: ./requirements/nginx/
     environment:
       HOST_DOMAIN: ${HOST_DOMAIN:-login.42.fr}
+    networks:
+      - inception
     volumes:
       - ./requirements/nginx/templates:/etc/nginx/templates:ro
     secrets:
@@ -18,12 +21,22 @@ services:
     ports:
       - "4343:443"
     restart: always
+
   mariadb:
     container_name: mariadb
     build:
       context: ./requirements/mariadb/
+    env_file: .env
+    networks:
+      - inception
     volumes:
      - mariadb-data:/usr/data/ # idk where to mount it
+    secrets:
+      - source: mysql_pass
+        target: ${INC_MYSQL_PASS_FILE:-/run/secrets/mysql_pass}
+
+networks:
+  inception:
 
 volumes:
   mariadb-data:
@@ -38,3 +51,5 @@ secrets:
     file: ${TLS_CRT:-../secrets/tls_crt}
   tls_key:
     file: ${TLS_KEY:-../secrets/tls_key}
+  mysql_pass:
+    file: ${MYSQL_PASS_FILE:-../secrets/mysql_pass}

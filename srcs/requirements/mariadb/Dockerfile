@@ -4,10 +4,12 @@ RUN apt-get -y update && \
         apt-get install -y --no-install-recommends \
         mariadb-server
 
-COPY tools/original-docker-entrypoint.sh /usr/local/bin/
+COPY tools/docker-entrypoint.sh /usr/local/bin/
+COPY conf/99-my.cnf /etc/mysql/mariadb.conf.d/
 
-EXPOSE 3306
+#EXPOSE 3306
 
-ENTRYPOINT ["original-docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["mariadbd"]
+CMD ["mariadbd"] 
+#, "-u", "mysql"]
