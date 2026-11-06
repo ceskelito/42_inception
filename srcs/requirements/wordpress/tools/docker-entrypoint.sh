@@ -44,4 +44,4 @@ main()
   fi
 }
 
-exec php-fpm
+exec $@
