@@ -1,25 +1,25 @@
 #!/bin/bash
 set -e
 
-: "${INC_MYSQL_PASS_FILE:=/run/secrets/mysql_pass}"
-[ -r "$INC_MYSQL_PASS_FILE" ] && INC_MYSQL_PASS="$(< "$INC_MYSQL_PASS_FILE")"
+: "${WP_DB_PASS_FILE:=/run/secrets/wp_db_password}"
+[ -r "$WP_DB_PASS_FILE" ] && WP_DB_PASSWORD="$(< "$WP_DB_PASS_FILE")"
 
-: "${INC_MYSQL_PASS:?missing password}"
-: "${INC_MYSQL_USER:?missing user}"
-: "${INC_MYSQL_DB:?missing database}"
+: "${WP_DB_PASSWORD:?missing password}"
+: "${WP_DB_USER:?missing user}"
+: "${WP_DB_NAME:?missing database}"
 
 mkdir -p /run/mysqld
 chown mysql:mysql /run/mysqld
 
 service mariadb start
 
-mariadb -e "CREATE DATABASE IF NOT EXISTS \`${INC_MYSQL_DB}\`;"
-mariadb -e "CREATE USER IF NOT EXISTS '${INC_MYSQL_USER}'@'%' IDENTIFIED BY '${INC_MYSQL_PASS}';"
-mariadb -e "GRANT ALL ON \`${INC_MYSQL_DB}\`.* TO '${INC_MYSQL_USER}'@'%';"
+mariadb -e "CREATE DATABASE IF NOT EXISTS \`${WP_DB_NAME}\`;"
+mariadb -e "CREATE USER IF NOT EXISTS '${WP_DB_USER}'@'%' IDENTIFIED BY '${WP_DB_PASSWORD}';"
+mariadb -e "GRANT ALL ON \`${WP_DB_NAME}\`.* TO '${WP_DB_USER}'@'%';"
 mariadb -e "FLUSH PRIVILEGES;"
 
 mariadb-admin shutdown
 
-unset INC_MYSQL_PASS
+unset WP_DB_PASSWORD
 
 exec $@ #mariadbd --user=mysql

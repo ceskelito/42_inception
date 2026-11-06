@@ -32,8 +32,8 @@ services:
     volumes:
      - mariadb-data:/usr/data/ # idk where to mount it
     secrets:
-      - source: mysql_pass
-        target: ${INC_MYSQL_PASS_FILE:-/run/secrets/mysql_pass}
+      - source: wp_db_password
+        target: ${WP_DB_PASS_FILE:-/run/secrets/wp_db_password}
 
 networks:
   inception:
@@ -51,5 +51,5 @@ secrets:
     file: ${TLS_CRT:-../secrets/tls_crt}
   tls_key:
     file: ${TLS_KEY:-../secrets/tls_key}
-  mysql_pass:
-    file: ${MYSQL_PASS_FILE:-../secrets/mysql_pass}
+  wp_db_password:
+    file: '../secrets/wp_db_password'
