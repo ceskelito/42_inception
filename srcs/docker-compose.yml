@@ -21,6 +21,8 @@ services:
       - "4343:443"
     networks:
       - inception
+    depends_on:
+      - wordpress
     restart: always
 
   mariadb:
@@ -29,7 +31,7 @@ services:
       context: ./requirements/mariadb/
     env_file: .env
     volumes:
-     - wp-database:/usr/data/ # idk where to mount it
+      - wp-database:/var/lib/mysql
     secrets:
       - source: wp_db_password
         target: ${WP_DB_PASS_FILE:-/run/secrets/wp_db_password}
@@ -60,13 +62,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${INC_DATA}
+        device: ${INC_DATA}/mariadb
   wp-websites:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${INC_DATA}
+      device: ${INC_DATA}/wordpress
 
 secrets:
   tls_cert:

@@ -4,7 +4,7 @@ set -e
 
 check_envs()
 {
-  : "${WP_DB_PASS_FILE:=/run/secrets/mysql_pass}"
+	: "${WP_DB_PASS_FILE:=/run/secrets/wp_db_password}"
   [ -r "$WP_DB_PASS_FILE" ] && WP_DB_PASSWORD="$(< "$WP_DB_PASS_FILE")"
 
   : "${WP_DB_PASSWORD:?missing password}"
