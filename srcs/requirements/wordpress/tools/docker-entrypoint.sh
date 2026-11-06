@@ -2,25 +2,46 @@
 
 set -e
 
-exit # the script is only for example purposes - need to be modified
+check_envs()
+{
+  : "${WP_DB_PASS_FILE:=/run/secrets/mysql_pass}"
+  [ -r "$WP_DB_PASS_FILE" ] && WP_DB_PASSWORD="$(< "$WP_DB_PASS_FILE")"
 
-cd /var/www/html
+  : "${WP_DB_PASSWORD:?missing password}"
+  : "${WP_DB_USER:?missing user}"
+  : "${WP_DB_NAME:?missing database}"
+}
 
-if [ ! -f wp-config.php ]; then
-    echo "Genero wp-config.php..."
-    cp wp-config-sample.php wp-config.php
+place_envs()
+{
+	local file=$1
 
-    sed -i "s/database_name_here/${WORDPRESS_DB_NAME}/"         wp-config.php
-    sed -i "s/username_here/${WORDPRESS_DB_USER}/"              wp-config.php
-    sed -i "s/password_here/${WORDPRESS_DB_PASSWORD}/"          wp-config.php
-    sed -i "s/localhost/mariadb/"                               wp-config.php
+	sed -i "s|.*DB_NAME.*|define( 'DB_NAME', '${WP_DB_NAME}' )|" ${file}
+	sed -i "s|.*DB_USER.*|define( 'DB_USER', '${WP_DB_USER}' )|" ${file}
+	sed -i "s|.*DB_PASSWORD.*|define( 'DB_PASSWORD', '${WP_DB_PASSWORD}' )|" ${file}
+	sed -i "s|.*DB_HOST.*|define( 'DB_HOST', '${WP_DB_HOST}' )|" ${file}
+}
 
-    # Sal e prefisso (facoltativi)
-    if [ -n "$WORDPRESS_TABLE_PREFIX" ]; then
-        sed -i "s/wp_/${WORDPRESS_TABLE_PREFIX}/" wp-config.php
-    fi
+main()
+{
+  check_envs
 
-    chown www-data:www-data wp-config.php
-fi
+	local source_file='/var/www/html/wordpress/wp-config-sample.php'
+	local target_file='/var/www/html/wordpress/wp-config.php'
+
+	if [ ! -f $target_file ]; then
+		
+		cp $source_file $target_file
+
+		place_envs $target_file
+
+		chown www-data:www-data $target_file
+
+  else
+
+    echo "$target_file already present"
+
+  fi
+}
 
 exec php-fpm
