@@ -11,6 +11,7 @@ services:
       HOST_DOMAIN: ${HOST_DOMAIN:-login.42.fr}
     volumes:
       - ./requirements/nginx/templates:/etc/nginx/templates:ro
+      - wp-websites:/var/www/html/wordpress/:ro
     secrets:
       - source: tls_cert
         target: /run/secrets/${HOST_DOMAIN:-login.42.fr}.crt

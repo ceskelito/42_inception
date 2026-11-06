@@ -31,4 +31,4 @@ EXPOSE 9000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["php-fpm"]
+CMD ["php-fpm", "-F"]
