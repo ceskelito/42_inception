@@ -22,7 +22,7 @@ RUN apt-get -y update && \
 			rm -rf /var/lib/apt/lists/*
 
 # Setup wordpress
-COPY --from=build --chown=www-data:www-data /opt/wordpress /var/www/html
+COPY --from=build --chown=www-data:www-data /opt/wordpress /var/www/html/wordpress
 
 COPY tools/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

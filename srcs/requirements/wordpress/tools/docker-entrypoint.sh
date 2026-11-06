@@ -25,7 +25,6 @@ place_envs()
 main()
 {
   check_envs
-
 	local source_file='/var/www/html/wordpress/wp-config-sample.php'
 	local target_file='/var/www/html/wordpress/wp-config.php'
 
