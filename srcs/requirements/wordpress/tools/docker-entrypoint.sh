@@ -44,4 +44,6 @@ main()
   fi
 }
 
+main
+
 exec $@

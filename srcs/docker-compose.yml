@@ -9,8 +9,6 @@ services:
       context: ./requirements/nginx/
     environment:
       HOST_DOMAIN: ${HOST_DOMAIN:-login.42.fr}
-    networks:
-      - inception
     volumes:
       - ./requirements/nginx/templates:/etc/nginx/templates:ro
     secrets:
@@ -20,6 +18,8 @@ services:
         target: /run/secrets/${HOST_DOMAIN:-login.42.fr}.key
     ports:
       - "4343:443"
+    networks:
+      - inception
     restart: always
 
   mariadb:
@@ -27,19 +27,40 @@ services:
     build:
       context: ./requirements/mariadb/
     env_file: .env
-    networks:
-      - inception
     volumes:
-     - mariadb-data:/usr/data/ # idk where to mount it
+     - wp-database:/usr/data/ # idk where to mount it
     secrets:
       - source: wp_db_password
         target: ${WP_DB_PASS_FILE:-/run/secrets/wp_db_password}
+    networks:
+      - inception
+    restart: always
+
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress/
+    env_file: .env
+    volumes:
+      - wp-websites:/var/www/html/wordpress/
+    secrets:
+      - source: wp_db_password
+        target: ${WP_DB_PASS_FILE:-/run/secrets/wp_db_password}
+    networks:
+      - inception
+    restart: always
 
 networks:
   inception:
 
 volumes:
-  mariadb-data:
+  wp-database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INC_DATA}
+  wp-websites:
     driver: local
     driver_opts:
       type: none
