@@ -53,6 +53,8 @@ services:
       - inception
     ports:
       - "9000"
+    depends_on:
+      - mariadb
     restart: always
 
 networks:
