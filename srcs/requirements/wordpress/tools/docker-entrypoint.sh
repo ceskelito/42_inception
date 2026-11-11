@@ -35,7 +35,7 @@ main()
 		--dbpass="$WP_DB_PASS" \
 		--dbhost="$WP_DB_HOST"
 		echo "wp-config.php generated"
-fi
+	fi
 
 }
 
