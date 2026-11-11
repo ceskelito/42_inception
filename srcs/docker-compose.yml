@@ -21,8 +21,8 @@ services:
       - "4343:443"
     networks:
       - inception
-#    depends_on:
-#      - wordpress
+    depends_on:
+      - wordpress
     restart: always
 
   mariadb:
@@ -51,6 +51,8 @@ services:
         target: ${WP_DB_PASS_FILE:-/run/secrets/wp_db_password}
     networks:
       - inception
+    ports:
+      - "9000"
     restart: always
 
 networks:
