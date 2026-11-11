@@ -18,18 +18,16 @@ FROM build
 
 RUN apt-get -y update && \
 			apt-get install -y --no-install-recommends \
-				php-fpm && \
+				php8.2-fpm && \
 			rm -rf /var/lib/apt/lists/*
 
 # Setup wordpress
-# COPY --from=build --chown=www-data:www-data /opt/wordpress /usr/src/wordpress
 COPY --from=build --chown=www-data:www-data /opt/wordpress /var/www/html/wordpress
 
 COPY tools/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 9000
-
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["php-fpm", "-F"]
+CMD ["php-fpm8.2", "-F"]

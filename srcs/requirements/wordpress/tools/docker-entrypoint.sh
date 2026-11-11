@@ -38,7 +38,7 @@ main()
 
   else
 
-    echo "$target_file already present"
+    echo "Not recreating $target_file: file already present"
 
   fi
 }
