@@ -3,7 +3,7 @@ FROM debian:bookworm AS build
 RUN apt-get -y update && \
 			apt-get install -y --no-install-recommends \
 				wget \
-				unzip \ 
+				unzip \
 				ca-certificates && \
 			rm -rf /var/lib/apt/lists/*
 
@@ -22,6 +22,7 @@ RUN apt-get -y update && \
 			rm -rf /var/lib/apt/lists/*
 
 # Setup wordpress
+# COPY --from=build --chown=www-data:www-data /opt/wordpress /usr/src/wordpress
 COPY --from=build --chown=www-data:www-data /opt/wordpress /var/www/html/wordpress
 
 COPY tools/docker-entrypoint.sh /usr/local/bin
