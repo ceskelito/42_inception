@@ -7,7 +7,7 @@ COMPOSE	= docker compose -f
 COMPOSE_FILE		= ./srcs/docker-compose.yml
 
 DATA_DIR = $(HOME)/data
-DATA_SUBDIRS = inception mariadb nginx
+DATA_SUBDIRS = wp-websites wp-database
 
 all: up ## Same as up (default target)
 

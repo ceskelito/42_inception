@@ -66,13 +66,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${INC_DATA}/mariadb
+      device: ${INC_DATA}/wp-database
   wp-websites:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${INC_DATA}/wordpress
+      device: ${INC_DATA}/wp-websites
 
 secrets:
   tls_cert:
