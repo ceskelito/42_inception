@@ -7,7 +7,7 @@ RUN apt-get -y update && \
 
 COPY tools/docker-entrypoint.sh /
 COPY tools/20-envsubst-on-templates.sh /docker-entrypoint.d/
-# COPY templates/default.conf.template /etc/nginx/templates
+COPY templates/wordpress.conf.template /etc/nginx/templates/
 
 EXPOSE 443
 
