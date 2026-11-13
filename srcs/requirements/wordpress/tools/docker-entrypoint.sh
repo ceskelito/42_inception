@@ -13,23 +13,13 @@ check_envs()
   : "${WP_DB_NAME:?missing database}"
 }
 
-# place_envs()
-# {
-# 	local file=$1
-# 
-# 	sed -i "s|.*DB_NAME.*|define( 'DB_NAME', '${WP_DB_NAME}' )|" ${file}
-# 	sed -i "s|.*DB_USER.*|define( 'DB_USER', '${WP_DB_USER}' )|" ${file}
-# 	sed -i "s|.*DB_PASSWORD.*|define( 'DB_PASSWORD', '${WP_DB_PASS}' )|" ${file}
-# 	sed -i "s|.*DB_HOST.*|define( 'DB_HOST', '${WP_DB_HOST}' )|" ${file}
-# }
-  
 main()
 {
   check_envs
 
-	local source_file='/var/www/html/wordpress/wp-config-sample.php'
+	local target_file='/var/www/html/wordpress/wp-config.php'
 	
-	if [ ! -f $source_file ]; then
+	if [ ! -f $target_file ]; then
 		wp config create --allow-root \
 		--dbname="$WP_DB_NAME" \
 		--dbuser="$WP_DB_USER" \
