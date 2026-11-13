@@ -51,6 +51,10 @@ services:
         target: ${WP_DB_PASS_FILE:-/run/secrets/wp_db_password}
     networks:
       - inception
+    ports:
+      - "9000"
+    depends_on:
+      - mariadb
     restart: always
 
 networks:
@@ -62,13 +66,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${INC_DATA}/mariadb
+      device: ${INC_DATA}/wp-database
   wp-websites:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${INC_DATA}/wordpress
+      device: ${INC_DATA}/wp-websites
 
 secrets:
   tls_cert:
