@@ -16,9 +16,9 @@ main()
 {
   check_envs
 
-	local source_file='/var/www/html/wordpress/wp-config-sample.php'
+	local target_file='/var/www/html/wordpress/wp-config.php'
 	
-	if [ ! -f $source_file ]; then
+	if [ ! -f $target_file ]; then
 		wp config create --allow-root \
 		--dbname="$WP_DB_NAME" \
 		--dbuser="$WP_DB_USER" \
