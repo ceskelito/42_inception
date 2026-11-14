@@ -2,13 +2,13 @@
 
 ## NEED TO COMPLETE THE SCRIPT, THEN PLACE IN DOCKERFILE
 
-BASE_DIR="./tmp" #/opt/wordpress
+CWD="." #/opt/wordpress
 
-mkdir -p $BASE_DIR
+mkdir -p $CWD
 
-WP_CLI="$BASE_DIR/wp-cli.phar"
-WP_CLI_ASC="$BASE_DIR/wp-cli.phar.asc"
-WP_KEYRING="$BASE_DIR/wp-cli.gpg"
+WP_CLI="$CWD/wp-cli.phar"
+WP_CLI_ASC="$CWD/wp-cli.phar.asc"
+WP_KEYRING="$CWD/wp-cli.gpg"
 
 # Download WP-CLI
 curl --output $WP_CLI https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
