@@ -1,6 +1,6 @@
-# sat 14/11
+## sat 14/11 - Wordpress installation and configuration
 
-Studiando riguardo a come installare Wordpress ho adocchiato la repo ufficiale di wordpress docker su github (link nel readme)
+Studiando riguardo a come installare Wordpress ho adocchiato la [repo ufficiale di wordpress docker su github](https://github.com/docker-library/wordpress)
 
 Ho scoperto che loro scaricano wp similmente a come faccio io, e la configurazione la copiano da [wp-config-docker.php](https://github.com/docker-library/wordpress/blob/master/latest/php8.4/fpm/wp-config-docker.php), che ha una funzione speciale per sostituire le variabili ambientali.
 
