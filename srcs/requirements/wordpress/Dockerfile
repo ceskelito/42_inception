@@ -46,6 +46,7 @@ COPY --from=build --chown=www-data:www-data /opt/wordpress /var/www/html/wordpre
 
 # Copy php configuration files and entrypoint scripts
 COPY --chmod=440 --chown=ww-data:www-data conf/www.conf /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+COPY --chown=www-data:www-data conf/wp-config.php /var/www/html/wordpress
 COPY --chmod=550 tools/docker-entrypoint.sh /usr/local/bin
 
 EXPOSE 9000
