@@ -1,17 +1,25 @@
 # Resources
 
+## General
+[Install wordpress with nginx on debian](https://linuxcapable.com/how-to-install-wordpress-with-nginx-on-debian-linux/#install-wordpress-with-nginx-on-debian)
+
+[What is CGI](https://it.wikipedia.org/wiki/Common_Gateway_Interface)
+
+[What is FastCGI](https://it.wikipedia.org/wiki/FastCGI)
+
+## Nginx
+[Nginx configuration for wordpress](https://developer.wordpress.org/advanced-administration/server/web-server/nginx/)
+
+[TLS Configurator for nginx](https://configurator.tlsref.org/)
+
 ## Wordpress
-[Official Wordpress docker image on GitHub](https://github.com/docker-library/wordpress)
+[Wordpress releases](https://wordpress.org/download/releases/)
 
-[WP-CLI Quick Start](https://make.wordpress.org/cli/handbook/guides/quick-start/)
+[Official Wordpress docker image on GitHub](https://github.com/docker-library/wordpress/tree/master/latest/php8.2/fpm)
 
-[Verifying WP-CLI Downloads](https://make.wordpress.org/cli/handbook/guides/verifying-downloads/)
+[Reccomended php.ini settings (opcache)](https://www.php.net/manual/en/opcache.installation.php)
 
-[Wordpress installation guide on debian](https://linuxcapable.com/how-to-install-wordpress-with-nginx-on-debian-linux/#install-wordpress-with-nginx-on-debian)
-
-[Wordpress server requirements](https://wordpress.org/about/requirements/)
-
-[Official list of required PHP extension](https://make.wordpress.org/hosting/handbook/server-environment/#php-extensions)
+[List of required PHP extension](https://make.wordpress.org/hosting/handbook/server-environment/#php-extensions)
 
 [PHP Extensions for WP - Required VS Reccomended](https://webaloha.co/php-extensions-for-wordpress/)
 

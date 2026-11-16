@@ -1,3 +1,14 @@
+## mon 16/11 - Wordpress dockerfile, configuration and entrypoint
+
+Ho ultimato il dockerfile di wordpress, installando tutto nei RUN e verificando lo sha.
+
+Ho aggiunto il file di configurazione direttamente nella directory /conf, con la funzione per sostituire in maniera safe le variabili di ambiente.
+
+Adesso lo script entrypoint, non dovendo più modificare il config-sample (essendo scriptata la config stessa) verifica solo l'esistenza delle variabili.
+
+Il prossimo passo è di aggiungere all'entrypoint un controllo sullo stato di mariadb prima di proseguire.
+
+
 ## sat 14/11 - Wordpress installation and configuration
 
 Studiando riguardo a come installare Wordpress ho adocchiato la [repo ufficiale di wordpress docker su github](https://github.com/docker-library/wordpress)
