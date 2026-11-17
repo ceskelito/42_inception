@@ -24,3 +24,7 @@
 [PHP Extensions for WP - Required VS Reccomended](https://webaloha.co/php-extensions-for-wordpress/)
 
 [List of PHP extensions for WP](https://wilbrown.com/required-php-extensions-for-wordpress-wpquickies/)
+
+[Bash /dev/tcp script to wait a container](https://github.com/taiidani/docker-wait-for-it)
+
+[Bash Network Programming: TCP Connections with /dev/tcp](https://www.commandinline.com/bash-network-programming-dev-tcp-connections/)

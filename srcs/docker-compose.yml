@@ -37,6 +37,7 @@ services:
     networks:
       - inception
     healthcheck:
+# Study MORE this command and improve it !!
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-p$$MARIADB_ROOT_PASSWORD"]
     restart: always
 
