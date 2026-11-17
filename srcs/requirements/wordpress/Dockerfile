@@ -65,6 +65,7 @@ RUN set -eux; \
 COPY --from=downloader --chown=www-data:www-data /var/www/html/wordpress /var/www/html/wordpress
 COPY --chmod=440 --chown=www-data:www-data conf/www.conf /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
 COPY --chown=www-data:www-data conf/wp-config.php /var/www/html/wordpress
+COPY --chmod=550 tools/docker-entrypoint.sh /docker-entrypoint.sh
 
 EXPOSE 9000
 

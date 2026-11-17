@@ -1,3 +1,17 @@
+## thu 17/11 - Wordpress entrypoint and dependance from Mariadb service healthy
+
+Ho aggiunto alcune considerazioni di sicurezza da wordpress verso mariadb.
+
+- Nel docker-compose
+	Aggiunto il test dell'helthcheck per mariadb
+	Aggiunta la la condizione sul depends_on mariab di Wordpress (service_healthy)
+- Nell'entrypoint
+	Aggiunta l'attesa di connessione al socket tcp di mariadb da wordpress tramite /dev/tcp
+
+Aggiunta la variabile WP_DB_PORT nel env_file
+
+Aggiunta la COPY dell'entrypoint in Wordpress (avevo dimenticato)
+
 ## mon 16/11 - Wordpress dockerfile, configuration and entrypoint
 
 Ho ultimato il dockerfile di wordpress, installando tutto nei RUN e verificando lo sha.

@@ -36,6 +36,8 @@ services:
         target: ${WP_DB_PASS_FILE:-/run/secrets/wp_db_password}
     networks:
       - inception
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-p$$MARIADB_ROOT_PASSWORD"]
     restart: always
 
   wordpress:
@@ -53,7 +55,8 @@ services:
     ports:
       - "9000"
     depends_on:
-      - mariadb
+      mariadb:
+       condition: service_healthy
     restart: always
 
 networks:
