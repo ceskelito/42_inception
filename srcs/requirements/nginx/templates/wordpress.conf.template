@@ -16,8 +16,8 @@ server {
 
 		server_name ${HOST_DOMAIN} www.${HOST_DOMAIN};
 
-		ssl_certificate			/run/secrets/${HOST_DOMAIN}.crt;
-		ssl_certificate_key	/run/secrets/${HOST_DOMAIN}.key;
+		ssl_certificate			${NGINX_TLS_CRT_FILE};
+		ssl_certificate_key	${NGINX_TLS_KEY_FILE};
 
 		ssl_protocols TLSv1.2 TLSv1.3;
 

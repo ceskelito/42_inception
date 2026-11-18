@@ -1,13 +1,17 @@
 FROM debian:bookworm
 
-RUN apt-get -y update && \
+RUN set -e; \
+	apt-get -y update; \
 	apt-get install -y --no-install-recommends \
-	gettext-base \
-	nginx
+		gettext-base \
+		nginx \
+	; \
+	rm -rf /var/lib/apt/lists*
 
-COPY tools/docker-entrypoint.sh /
-COPY tools/20-envsubst-on-templates.sh /docker-entrypoint.d/
-COPY templates/wordpress.conf.template /etc/nginx/templates/
+
+COPY --chmod=550 tools/docker-entrypoint.sh /
+COPY --chmod=550 tools/20-envsubst-on-templates.sh /docker-entrypoint.d/
+COPY --chmod=440 templates/wordpress.conf.template /etc/nginx/templates/
 
 EXPOSE 443
 
