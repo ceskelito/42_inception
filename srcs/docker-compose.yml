@@ -37,7 +37,7 @@ services:
     networks:
       - inception
     healthcheck:
-      test: mariadb -h localhost -u"$$WP_DB_USER" "$$WP_DB_NAME" -p"$$(cat $$WP_DB_PASS_FILE)" -e "SELECT 1" > /dev/null
+      test: mariadb -h localhost -u"$$WP_DB_USER" "$$WP_DB_NAME" -p"$$(cat $$WP_DB_PASS_FILE)" -N -B -e "SELECT 1" &>/dev/null
       interval: 5s
       timeout: 3s
       retries: 10
